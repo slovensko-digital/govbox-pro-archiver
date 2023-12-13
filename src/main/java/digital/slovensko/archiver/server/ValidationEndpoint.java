@@ -24,6 +24,7 @@ public class ValidationEndpoint implements HttpHandler {
             document = body.getDecodedContent();
             if (document == null || document.openStream().readAllBytes().length < 1)
                 throw new IllegalArgumentException("Document to validate is null.");
+
         } catch (JsonSyntaxException | IOException | IllegalArgumentException e) {
             EndpointUtils.respondWithError(new ErrorResponse(422, "UNPROCESSABLE_ENTITY", "Error processing request", e.getMessage()), exchange);
         }
@@ -35,14 +36,10 @@ public class ValidationEndpoint implements HttpHandler {
                 return;
             }
 
-            try {
-                EndpointUtils.respondWith(ValidationResponseBody.build(reports, document), exchange);
-            } catch (Exception e) {
-                EndpointUtils.respondWithError(ErrorResponse.buildFromException(e), exchange);
-            }
+            EndpointUtils.respondWith(ValidationResponseBody.build(reports, document), exchange);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            EndpointUtils.respondWithError(ErrorResponse.buildFromException(e), exchange);
         }
     }
 }

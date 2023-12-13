@@ -1,5 +1,6 @@
 package digital.slovensko.archiver.core;
 
+import digital.slovensko.archiver.core.errors.DocumentNotSignedYetException;
 import eu.europa.esig.dss.AbstractSignatureParameters;
 import eu.europa.esig.dss.asic.cades.ASiCWithCAdESSignatureParameters;
 import eu.europa.esig.dss.asic.cades.signature.ASiCWithCAdESService;
@@ -41,7 +42,7 @@ public class DSSUtils {
         if (new CMSDocumentValidatorFactory().isSupported(document))
             return new CMSDocumentValidatorFactory().create(document);
 
-        return null;
+        throw new DocumentNotSignedYetException();
     }
 
     public static SignatureLevel getLtaSignatureLevelForDocument(InMemoryDocument document) {

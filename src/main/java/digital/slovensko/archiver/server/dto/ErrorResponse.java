@@ -31,6 +31,7 @@ public class ErrorResponse {
         return switch (e.getClass().getSimpleName()) {
             case "UnrecognizedException" -> new ErrorResponse(502, "UNRECOGNIZED_DSS_ERROR", (ArchiverException) e);
             case "OriginalDocumentNotFoundException" -> new ErrorResponse(422, "ORIGINAL_DOCUMENT_NOT_FOUND", (ArchiverException) e);
+            case "DocumentNotSignedYetException" -> new ErrorResponse(422, "DOCUMENT_NOT_SIGNED", (ArchiverException) e);
             default -> new ErrorResponse(500, "INTERNAL_ERROR", "Unexpected exception signing document", e.getMessage());
         };
     }
