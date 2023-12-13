@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "java (build)",
+      "paths": [
+        "${workspace}"
+      ],
+      "isFullBuild": true,
+      "group": "build",
+      "problemMatcher": [],
+      "label": "java (build): Build Workspace",
+      "detail": "$(tools) Build all the Java projects in workspace."
+    },
+    {
+      "label": "Run Archiver CLI",
+      "command": "./mvnw exec:java -Dexec.mainClass=\"digital.slovensko.archiver.Main\" -Dexec.args=\"${input:commandLineArguments}\"",
+      "type": "shell",
+      "problemMatcher": [],
+      "options": {
+        "env": {
+          "JAVA_HOME": "${config:java.jdt.ls.java.home}"
+        }
+      }
+    }
+  ]
+}

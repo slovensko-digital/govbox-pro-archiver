@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run Main class",
+            "request": "launch",
+            "mainClass": "digital.slovensko.archiver.Main",
+            "projectName": "archiver",
+            "preLaunchTask": "java (build): Build Workspace"
+        }
+    ]
+}
