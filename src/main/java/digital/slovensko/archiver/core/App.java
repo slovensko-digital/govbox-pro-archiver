@@ -1,5 +1,6 @@
 package digital.slovensko.archiver.core;
 
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -7,7 +8,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import org.apache.commons.cli.*;
 
 import digital.slovensko.archiver.server.ArchiverServer;
+import eu.europa.esig.dss.service.http.commons.TimestampDataLoader;
 import eu.europa.esig.dss.service.tsp.OnlineTSPSource;
+import eu.europa.esig.dss.spi.x509.tsp.CompositeTSPSource;
 import eu.europa.esig.dss.spi.x509.tsp.TSPSource;
 
 
@@ -28,8 +31,15 @@ public class App {
                 printHelp();
             } else {
                 var port = Integer.parseInt(cmd.getOptionValue("port", "8720"));
-                var tspSource = new OnlineTSPSource(cmd.getOptionValue("tsa-server", "http://tsa.izenpe.com"));
+                var tsaServers = cmd.getOptionValue("tsa-server", "http://tsa.belgium.be/connect,http://tsa.izenpe.com,http://ts.quovadisglobal.com/eu,http://tsa.sep.bg,http://kstamp.keynectis.com/KSign,https://timestamp.sectigo.com/qualified");
 
+                var timestampDataLoader = new TimestampDataLoader();
+                var tspSource = new CompositeTSPSource();
+                var tspSources = new HashMap<String, TSPSource>();
+                for (var tsaServer : tsaServers.split(","))
+                    tspSources.put(tsaServer, new OnlineTSPSource(tsaServer, timestampDataLoader));
+
+                tspSource.setTspSources(tspSources);
                 run(port, tspSource);
             }
         } catch (ParseException e) {
