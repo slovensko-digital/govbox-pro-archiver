@@ -31,6 +31,10 @@ public record ValidationResponseBody(String fileFormat, List<Signature> signatur
         List<Signature> signatures = dr.getSignatures().stream().map((e) -> {
             var conclusion = e.getConclusion();
             var timestamps = e.getTimestamps();
+
+            if (dd.getSigningCertificateId(e.getId()) == null)
+                return null;
+
             var signingCertificate = dd.getCertificateById(dd.getSigningCertificateId(e.getId()));
 
             return new Signature(
@@ -75,6 +79,9 @@ public record ValidationResponseBody(String fileFormat, List<Signature> signatur
                             dd.getSignerDocuments(e.getId()).stream().map(SignerDataWrapper::getId).toList()
                     ));
         }).toList();
+
+        if (signatures.size() == 0 || (signatures.size() == 1 && signatures.get(0) == null))
+            return null;
 
         List<SignedObject> signedObjects = null;
         List<UnsignedObject> unsignedObjects = null;

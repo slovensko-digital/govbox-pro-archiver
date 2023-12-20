@@ -63,7 +63,11 @@ public class SignatureValidator {
         if (documentValidator == null)
             return null;
 
-        return validate(documentValidator);
+        try {
+            return validate(documentValidator);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public synchronized void refresh() {

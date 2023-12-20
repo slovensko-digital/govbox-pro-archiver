@@ -36,7 +36,13 @@ public class ValidationEndpoint implements HttpHandler {
                 return;
             }
 
-            EndpointUtils.respondWith(ValidationResponseBody.build(reports, document), exchange);
+            var responseBody = ValidationResponseBody.build(reports, document);
+            if (responseBody == null) {
+                EndpointUtils.respondWithError(new ErrorResponse(400, "VALIDATION_FAILED", "Validation failed for the given document", "Validation failed for the given document"), exchange);
+                return;
+            }
+
+            EndpointUtils.respondWith(responseBody, exchange);
 
         } catch (Exception e) {
             EndpointUtils.respondWithError(ErrorResponse.buildFromException(e), exchange);

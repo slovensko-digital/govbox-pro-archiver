@@ -28,7 +28,7 @@ public class App {
                 printHelp();
             } else {
                 var port = Integer.parseInt(cmd.getOptionValue("port", "8720"));
-                var tspSource = new OnlineTSPSource(cmd.getOptionValue("tsa-server", "http://tsa.belgium.be/connect"));
+                var tspSource = new OnlineTSPSource(cmd.getOptionValue("tsa-server", "http://tsa.izenpe.com"));
 
                 run(port, tspSource);
             }
