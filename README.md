@@ -1,4 +1,4 @@
-# Archiver
+# GovBox Pro - Archiver
 
 The application is based on the Autogram project.
 

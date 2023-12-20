@@ -1,0 +1,7 @@
+# Only authorized users can change workflows and packaging
+.github @slovensko-digital/sro-maintainers
+/pom.xml @slovensko-digital/sro-maintainers
+/mvnw @slovensko-digital/sro-maintainers
+/mvnw.cmd @slovensko-digital/sro-maintainers
+/.mvn @slovensko-digital/sro-maintainers
+/src/main/resources/digital/slovensko/archiver/core/lotlKeyStore.p12 @slovensko-digital/sro-maintainers
