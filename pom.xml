@@ -20,7 +20,7 @@
         <apache.httpcomponents.version>4.5.14</apache.httpcomponents.version>
         <saxon.version>12.4</saxon.version>
         <xerces.version>2.12.1</xerces.version>
-        <slf4j.version>2.0.9</slf4j.version>
+        <slf4j.version>2.0.11</slf4j.version>
         <junit.version>5.10.1</junit.version>
         <mockito.version>5.8.0</mockito.version>
         <commons-cli.version>1.6.0</commons-cli.version>
